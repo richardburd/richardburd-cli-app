@@ -5,12 +5,11 @@ require 'rubygems'
 
 class DataScraper
 
-  def weather_scraper_1(html_class)
+  def weather_scraper_1(timeslot, html_class)
+    index = timeslot.to_i
     html = open("https://weather.com/weather/hourbyhour/l/Boulder+CO+USCO0038:1:US")
     list = Nokogiri::HTML(html)
-    array = []
-    list.css(html_class).collect {|item| array << item.text}
-    array
+    list.css(html_class).collect {|item| item.text}[index]
   end
 
   def weather_scraper_2
@@ -20,13 +19,13 @@ end
 
 def request_time(timeslot)
   temp = DataScraper.new
-  temp.weather_scraper_1(".hourly-time .dsx-date")
+  temp.weather_scraper_1(timeslot, ".hourly-time .dsx-date")
 end
 # //////////////////////////////////////////////////
 # //////////////////////////////////////////////////
 # //////////////////////////////////////////////////
 # TESTS BEGIN HERE:
-puts request_time("4")
+puts request_time("0")
 # //////////////////////////////////////////////////
 # //////////////////////////////////////////////////
 # //////////////////////////////////////////////////
