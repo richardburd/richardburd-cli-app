@@ -43,12 +43,30 @@ def hour_scraper
   array
 end
 
+def rain_scraper
+  html = open("https://weather.com/weather/hourbyhour/l/Boulder+CO+USCO0038:1:US")
+  list = Nokogiri::HTML(html)
+  array = []
+  list.css(".precip div").collect {|item| array << item.text.gsub("%", "").to_i}
+  array
+end
+
+def temperature_scraper
+  html = open("https://weather.com/weather/hourbyhour/l/Boulder+CO+USCO0038:1:US")
+  list = Nokogiri::HTML(html)
+  array = []
+  list.css(".feels span").collect {|item| array << item.text.gsub("°", "").to_i}
+  array
+end
+
 # //////////////////////////////////////////////////
 # //////////////////////////////////////////////////
 # //////////////////////////////////////////////////
-# Here are the tests:
-puts single_hour_scraper
-puts hour_scraper
+# TESTS BEGIN HERE:
+#puts rain_scraper
+puts temperature_scraper
+#puts single_hour_scraper
+#puts hour_scraper
 # //////////////////////////////////////////////////
 # //////////////////////////////////////////////////
 # //////////////////////////////////////////////////
