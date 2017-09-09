@@ -59,14 +59,22 @@ def temperature_scraper
   array
 end
 
+def wind_scraper
+  html = open("https://weather.com/weather/hourbyhour/l/Boulder+CO+USCO0038:1:US")
+  list = Nokogiri::HTML(html)
+  array = []
+  list.css(".wind").collect {|item| array << item.text.gsub(/[a-zA-Z]/, "").to_i}
+  array
+end
+
 # //////////////////////////////////////////////////
 # //////////////////////////////////////////////////
 # //////////////////////////////////////////////////
 # TESTS BEGIN HERE:
-#puts rain_scraper
-puts temperature_scraper
 #puts single_hour_scraper
 #puts hour_scraper
+#puts rain_scraper
+puts temperature_scraper
 # //////////////////////////////////////////////////
 # //////////////////////////////////////////////////
 # //////////////////////////////////////////////////
