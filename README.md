@@ -6,7 +6,7 @@
 
 ## About This Program
 
-The purpose of this program is to check the Boulder Colorado weather and see if it's OK to go outside.  I could check the weather online but then I have to look at the complete hourly forecast for the entire day; this program just checks a specific timeframe that the user specifies so the user only sees weather for that time-frame, and nothing more.  The user can also specify the weather conditions they're willing to tolerate and will be told whether or not the weather conforms to those conditions the user finds tolerable; the objective is to get a quick answer on whether or not the user wants to go outside for exercise, or stay indoors. 
+The purpose of this program is to check the Boulder Colorado weather and see if it's OK to go outside.  I could check the weather online but then I have to look at the complete hourly forecast for the entire day; this program just checks a specific timeframe that the user specifies so the user only sees weather for that time-frame, and nothing more.  The user can also specify the weather conditions they're willing to tolerate and will be told whether or not the weather conforms to those conditions the user finds tolerable; the objective is to get a quick answer on whether or not the user wants to go outside for exercise, or stay indoors.
 
 ## Install instructions
 
@@ -16,23 +16,24 @@ You will need Ruby installed on your machine to run this program; simply fork a 
 
 ```
 ├── README.md
-├── foundation_scraper.rb
 ├── bin
 │   └── boulder-weathercheck
 ├── config
 │   └── environment.rb
 ├── lib
-    ├── engine
-        ├── data_query.rb
-        └── check_weather.rb
-    ├── parameters
-        ├── weather_parameters.rb
-        └── modules.rb
-
-    ├── data_scraper.rb
-    ├── data_requester.rb
-    ├── cli.rb
-    └── weather_database.rb
+│   ├── data_scraper.rb
+│   ├── data_requester.rb
+│   ├── cli.rb
+│   ├── weather_database.rb
+│   ├── engine
+│   │   ├── data_query.rb
+│   │   └── check_weather.rb
+│   └── parameters
+│       ├── weather_parameters.rb
+│       └── modules.rb
+└── tests
+        ├── data_scraper_test.rb
+        └── foundation_scraper.rb
 ```
 
 ## Contributors Guide
@@ -46,15 +47,15 @@ There are three GitHub accounts contributing to this project; they are all me [I
 <p class='util--hide'> I started writing the URL scraping code on a single ruby file several weeks ago just to play around with Nokogiri a bit; that single ruby file (believe it or not) evolved into the whole program.  I never created a Git Repo or setup a proper working environment because I wasn’t that comfortable with GitHub to be honest, and so I wanted to just get my code working.  My strategy was to first get all the code working correctly and then make a proper Git repo and do some refactoring along the way.  The tool I used to organize the whole thing is my 'process-flow illustration’ SVG file; both the illustration and the original ruby file of the fully-working program are <a href='https://drive.google.com/open?id=0B4e44pJ1yCAtRjdXcWNMaG56bDQ'>available here</a> on my google drive.</p>
 
 ### Project Requirements
- 
+
 This assignment asks us to do two things with data we pull from an external source:
 
 1. Implement a list view
 2. Implement a detail view
 
-This program accomplishes the first implementation by asking the user if they would like to view problematic 
-weather, the program accomplishes the latter implementation by showing a list of all weather conditions 
-associated with the timeframe queried.  The first implementation will not execute if the weather is good for 
-the specified time, so to make it run, the user must select “custom parameters” in the CLI and set the 
-conditions to weather extremes; this will trigger the first implementation to execute and show the user 
+This program accomplishes the first implementation by asking the user if they would like to view problematic
+weather, the program accomplishes the latter implementation by showing a list of all weather conditions
+associated with the timeframe queried.  The first implementation will not execute if the weather is good for
+the specified time, so to make it run, the user must select “custom parameters” in the CLI and set the
+conditions to weather extremes; this will trigger the first implementation to execute and show the user
 results.
