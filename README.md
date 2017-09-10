@@ -16,25 +16,24 @@ You will need Ruby installed on your machine to run this program; simply fork a 
 
 ```
 ├── README.md
-├── foundation_scraper.rb
 ├── bin
 │   └── boulder-weathercheck
 ├── config
 │   └── environment.rb
 ├── lib
+│   ├── data_scraper.rb
+│   ├── data_requester.rb
+│   ├── cli.rb
+│   ├── weather_database.rb
 │   ├── engine
-│       ├── data_query.rb
-│       └── check_weather.rb
-│   ├── parameters
+│   │   ├── data_query.rb
+│   │   └── check_weather.rb
+│   └── parameters
 │       ├── weather_parameters.rb
 │       └── modules.rb
-├── tests
+└── tests
         ├── data_scraper_test.rb
         └── foundation_scraper.rb
-    ├── data_scraper.rb
-    ├── data_requester.rb
-    ├── cli.rb
-    └── weather_database.rb
 ```
 
 ## Contributors Guide
