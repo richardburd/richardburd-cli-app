@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require_relative '../config/environment' 
+
+puts "Can you read this text!?  If you can then this file has the proper permissions to run!"
