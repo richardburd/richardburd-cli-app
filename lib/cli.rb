@@ -354,7 +354,7 @@ class BoulderWeatherCheck::CLI
       puts
     end
   end
-  
+
   def option_to_see_weather_by_the_hour 
     puts "\nWould you like to see the complete weather listing by the hour for the period of time you selected? (y/n)"
     user_input = gets.chomp.downcase
@@ -390,13 +390,57 @@ class BoulderWeatherCheck::CLI
   end  
 end
 
+
+
+
+x = WeatherDatabase.new 
+x.time = "12:00 pm"
+x.temperature = 70
+x.rain = 2
+x.cloud = "Partly Cloudy"
+x.wind = 2
+y = WeatherDatabase.new 
+y.time = "1:00 pm"
+y.temperature = 70
+y.rain = 2 
+y.cloud = "Clear" 
+y.wind = 2
+z = WeatherDatabase.new 
+z.time = "2:00 pm"
+z.temperature = 70
+z.rain = 2
+z.cloud = "Clear"
+z.wind = 2
+
+
 BoulderWeatherCheck::CLI.new.call
 
 
-# Add a (start_and_end_times_different) method
+   myparams = WeatherParameters.new 
 
-# Add a method that will allow the user to set the 
-# max temperature they are comfortable with?
+   myparams.use_default_parameters
+#myparams.use_user_defined_parameters(45, 20, 20, 18)
+
+   myparams.run_parameters_against_problematic_criteria
+#myparams.too_hot?(WeatherDatabase, myparams.hot_parameter)
+#myparams.too_rainy?(WeatherDatabase, myparams.rain_parameter)
+
+   myparams.list_out_hours_with_problamatic_weather
+
+
+
+
+if myparams.is_there_any_problamatic_weather? == true 
+  puts "yeah there's bad weather" 
+else 
+  puts "the weather's fine!"
+end 
+
+#if myparams.is_there_any_problamatic_weather? == true 
+#  puts "You can't go outside, the weather's not suitable" 
+#else 
+#  puts "Cool, the weather's gonna be OK outside"
+#end 
 
 
 
