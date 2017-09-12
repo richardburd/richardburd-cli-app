@@ -168,7 +168,8 @@ class BoulderWeatherCheck::CLI
         user_input = gets.chomp.downcase
       end
       puts "you have chosen to use my default parameters."
-      
+
+      WEATHER_PARAMETERS.use_default_parameters
       puts "press any key to continue"
       user_input = gets.chomp.downcase
     end
