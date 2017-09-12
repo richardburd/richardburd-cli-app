@@ -1,3 +1,25 @@
+class WeatherDatabase #NOTE this is fake and must be deleted
+  attr_accessor :time, :rain, :temperature, :cloud, :wind, :problems
+  @@all = []
+  
+  def initialize
+    @@all << self
+    @problems = []
+  end
+
+  def self.all
+    @@all
+  end
+
+  def self.delete_all
+    @@all = []
+  end
+end
+
+class BoulderWeatherCheck
+end
+
+# This is the CLI Controller that encapsulates the business logic
 class BoulderWeatherCheck
 end
 
@@ -189,6 +211,8 @@ BoulderWeatherCheck::CLI.new.call
 
 # Add a method that will allow the user to set the 
 # max temperature they are comfortable with?
+
+
 
 
 
