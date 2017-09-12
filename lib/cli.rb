@@ -344,6 +344,17 @@ class BoulderWeatherCheck::CLI
 #    end 
   end 
   
+  def display_weather
+    WeatherDatabase.all.map do |hour|
+      puts "#{hour.time}, Conditions:"
+      puts "Temperature feels like: #{hour.temperature}°"
+      puts "Chance of precipitation: #{hour.rain}%"
+      puts "Cloud conditions: #{hour.cloud}"
+      puts "Windspeed is #{hour.wind}mph"
+      puts
+    end
+  end
+  
   def option_to_see_weather_by_the_hour 
     puts "\nWould you like to see the complete weather listing by the hour for the period of time you selected? (y/n)"
     user_input = gets.chomp.downcase
