@@ -1,115 +1,3 @@
-
-
-
-
-class WeatherDatabase #NOTE this is fake and must be deleted
-  attr_accessor :time, :rain, :temperature, :cloud, :wind, :problems
-  @@all = []
-  
-  def initialize
-    @@all << self
-    @problems = []
-  end
-
-  def self.all
-    @@all
-  end
-
-  def self.delete_all
-    @@all = []
-  end
-end
-
-module ProblematicWeatherDefined
-  def too_hot?(database, parameter)
-    database.all.each do |hour| 
-      if hour.temperature > parameter 
-        hour.problems << "It's gona be too hot this hour!"
-      end
-    end
-  end
-
-  def too_cold?(database, parameter)
-    database.all.each do |hour| 
-      if hour.temperature < parameter 
-        hour.problems << "It's gona be too cold this hour!"
-      end
-    end
-  end
-
-  def too_rainy?(database, parameter)
-    database.all.each do |hour| 
-      if hour.rain > parameter 
-        hour.problems << "It's probably gonna rain this hour!"
-      end
-    end
-  end 
-
-  def too_windy?(database, parameter)
-    database.all.each do |hour| 
-      if hour.temperature > parameter 
-        hour.problems << "It's gona be too windy this hour!"
-      end
-    end
-  end  
-  
-end 
-
-module CheckForProblematicWeather
-  def run_parameters_against_problematic_criteria 
-    too_hot?(WeatherDatabase, hot_parameter)
-    too_cold?(WeatherDatabase, cold_parameter)
-    too_rainy?(WeatherDatabase, rain_parameter)
-    too_windy?(WeatherDatabase, wind_parameter)
-  end 
-  
-  def is_there_any_problamatic_weather? 
-    !(!(WeatherDatabase.all.detect {|hour| hour.problems.length != 0}))
-  end
-
-  def list_out_hours_with_problamatic_weather 
-    WeatherDatabase.all.map do |hour|
-      if hour.problems.length > 0 
-        puts "Problamatic Conditions for: #{hour.time}"
-        counter = 0
-        while hour.problems.length > counter
-          puts "   #{counter + 1}.) #{hour.problems[counter]}"
-          counter += 1
-        end 
-        puts ""
-      end 
-    end
-  end 
-end 
-
-class WeatherParameters 
-  attr_accessor :hot_parameter, :cold_parameter, :rain_parameter, :wind_parameter
-  include ProblematicWeatherDefined
-  include CheckForProblematicWeather
-  
-  def use_default_parameters 
-    self.hot_parameter = 75 
-    self.cold_parameter = 50
-    self.rain_parameter = 20
-    self.wind_parameter = 18
-  end 
-  
-  def use_user_defined_parameters(hot_parameter, cold_parameter, rain_parameter, wind_parameter) 
-    self.hot_parameter = hot_parameter 
-    self.cold_parameter = cold_parameter
-    self.rain_parameter = rain_parameter
-    self.wind_parameter = wind_parameter
-  end 
-end 
-
-class BoulderWeatherCheck
-end
-
-# This is the CLI Controller that encapsulates the business logic
-class BoulderWeatherCheck
-end
-
-# This is the CLI Controller that encapsulates the business logic
 class BoulderWeatherCheck::CLI
   attr_accessor :start_hour, :end_hour
   
@@ -174,28 +62,33 @@ class BoulderWeatherCheck::CLI
   
   # go back after this works and make it so 
   # you cannot enter in an invalid value
-  def custom_weather_parameters 
-    puts "\nwhat is the maximum air temperature (°F) you're willing to go outside in?\n"
-    user_input_1 = gets.chomp.to_i
-    if user_input_1 < 1 || user_input_1 > 100
-      puts "whoa, something went wrong, make sure you only enter numbers between 1 and 100"
-      custom_weather_parameters
+  def custom_weather_parameters
+    def parameter_limitations(user_input) 
+      if user_input < 1 || user_input > 100
+        puts "\nwhoa, something went wrong!!! Please make sure you only enter numbers between 1 and 100; let's go ahead and start over to be sure"
+        custom_weather_parameters
+      end
     end 
+    puts "\nWhat is the maximum air temperature (°F) you're willing to go outside in?\n"
+    user_input_1 = gets.chomp.to_i
+    parameter_limitations(user_input_1) 
     puts "\nOK cool...what is the minimum air temperature (°F) you're willing to go out in?"
     user_input_2 = gets.chomp.to_i
+    parameter_limitations(user_input_2)
     puts "\nNow tell me maximum percentage-chance of rain you're willing to tolerate?"
     user_input_3 = gets.chomp.to_i
+    parameter_limitations(user_input_3)
     puts "\nFinally, what is the maximum wind-speed (miles-per-hour) you're willing to tolerate?"
     user_input_4 = gets.chomp.to_i 
-    
+    parameter_limitations(user_input_4)
     myparams = WeatherParameters.new
     myparams.use_user_defined_parameters(user_input_1, user_input_2, user_input_3, user_input_4)
     
     puts "\nCool, so here's where we stand:"
-    puts "Max Temp: #{myparams.hot_parameter}°"
-    puts "Min Temp: #{myparams.cold_parameter}°"
-    puts "Max Prep: #{myparams.rain_parameter}%"
-    puts "Max Wind: #{myparams.wind_parameter}mph"
+    puts "Maximum Temperature: #{myparams.hot_parameter}°"
+    puts "Minimum Temperature: #{myparams.cold_parameter}°"
+    puts "Maximum Chance of Precipitation: #{myparams.rain_parameter}%"
+    puts "Maximum Allowable Windspeed: #{myparams.wind_parameter}mph"
     
     puts "\nPress any key to continue"
     user_input = gets.chomp
