@@ -1,3 +1,7 @@
+
+
+
+
 class WeatherDatabase #NOTE this is fake and must be deleted
   attr_accessor :time, :rain, :temperature, :cloud, :wind, :problems
   @@all = []
@@ -15,6 +19,42 @@ class WeatherDatabase #NOTE this is fake and must be deleted
     @@all = []
   end
 end
+
+module ProblematicWeatherDefined
+  def too_hot?(database, parameter)
+    database.all.each do |hour| 
+      if hour.temperature > parameter 
+        hour.problems << "It's gona be too hot this hour!"
+      end
+    end
+  end
+end 
+
+module CheckForProblematicWeather
+  def run_parameters_against_problematic_criteria 
+    too_hot?(WeatherDatabase, hot_parameter)
+  end 
+end 
+
+class WeatherParameters 
+  attr_accessor :hot_parameter, :cold_parameter, :rain_parameter, :wind_parameter
+  include ProblematicWeatherDefined
+  include CheckForProblematicWeather
+  
+  def use_default_parameters 
+    self.hot_parameter = 75 
+    self.cold_parameter = 50
+    self.rain_parameter = 20
+    self.wind_parameter = 18
+  end 
+  
+  def use_user_defined_parameters(hot_parameter, cold_parameter, rain_parameter, wind_parameter) 
+    self.hot_parameter = hot_parameter 
+    self.cold_parameter = cold_parameter
+    self.rain_parameter = rain_parameter
+    self.wind_parameter = wind_parameter
+  end 
+end 
 
 class BoulderWeatherCheck
 end
