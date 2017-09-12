@@ -311,7 +311,15 @@ class BoulderWeatherCheck::CLI
   end 
   
   def is_the_weather_suitable
-    puts "\nis (is_there_any_problamatic_weather?) correct?\n"
+    WEATHER_PARAMETERS.run_parameters_against_problematic_criteria
+    if WEATHER_PARAMETERS.is_there_any_problamatic_weather? == true
+      puts "\nYou can't go outside, the weather's not suitable" 
+    else
+      puts "\nCool, the weather's gonna be OK outside"
+      option_to_see_weather_by_the_hour
+      option_to_continue 
+      good_bye
+    end 
   end 
   
   def option_to_see_problematic_weather_by_the_hour 
