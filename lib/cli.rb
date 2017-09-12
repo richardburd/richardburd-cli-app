@@ -2,17 +2,22 @@ class BoulderWeatherCheck
 end
 
 # This is the CLI Controller that encapsulates the business logic
+class BoulderWeatherCheck
+end
+
+# This is the CLI Controller that encapsulates the business logic
 class BoulderWeatherCheck::CLI
   attr_accessor :start_hour, :end_hour
+  WEATHER_PARAMETERS = WeatherParameters.new
   
   def call
     program_use
     update_warning
-    custom_or_default_weather_parameters
     select_start_time
     select_end_time
     start_and_end_times_different
     run_program
+    custom_or_default_weather_parameters
     is_the_weather_suitable
     option_to_see_problematic_weather_by_the_hour
     option_to_see_weather_by_the_hour
@@ -33,7 +38,7 @@ class BoulderWeatherCheck::CLI
       I'm smart so you can be lazy! I will figure out
       if you want 'am' or 'pm' times; keep in mind that I
       can only predict the weather 12 hours out from now,
-      so don't ask me for anything else.
+      so do not ask me for anything else or I'll crash on you.
     DOC
     puts "\nPress any key to continue"
     user_input = gets.chomp.downcase
@@ -41,7 +46,7 @@ class BoulderWeatherCheck::CLI
   end
   
   def custom_or_default_weather_parameters 
-    puts "Which weather settings would you prefer to use?"
+    puts "\nWhich weather settings would you prefer to use?"
     puts ""
     puts "    1.) Default weather settings"
     puts ""
@@ -52,15 +57,88 @@ class BoulderWeatherCheck::CLI
       custom_weather_parameters   
     else 
       while user_input != "1"
-      puts "Huh!?  type 1 or 2"
+        puts "Huh!?  type 1 or 2"
+        user_input = gets.chomp.downcase
+      end
+      puts "you have chosen to use my default parameters."
+
+      WEATHER_PARAMETERS.use_default_parameters
+      puts "press any key to continue"
       user_input = gets.chomp.downcase
-    end 
     end
   end 
   
-  def custom_weather_parameters 
-    puts "\nthe (custom_weather_parameters) method goes here, press any key to continue\n"
-    user_input = gets.chomp.downcase
+  
+  # go back after this works and make it so 
+  # you cannot enter in an invalid value
+  def custom_weather_parameters
+    
+    def min_max_values(input) 
+      while input.to_i < -40 || input.to_i > 130 
+        puts "\nWhoa that's crazy...please enter a value between -40 and 130" 
+        input = gets.chomp.to_i
+        input
+      end 
+    end 
+    
+
+#      while first_input < second_input 
+#        puts "\nUh oh, you can't hava a minimum temperature that is higher than your maximum temperature; please enter a lower value"
+#        second_input = gets.chomp.to_i 
+#      end
+
+    
+    puts "\nWhat is the maximum air temperature (°F) you're willing to go outside in?\n"
+    
+    user_input_1 = gets.chomp.to_i
+      while user_input_1.to_i < -20 || user_input_1.to_i > 130 
+        puts "\nWhoa that's crazy...please enter a value between -20 and 130" 
+        user_input_1 = gets.chomp.to_i
+      end 
+      
+    puts "\nOK cool...what is the minimum air temperature (°F) you're willing to go out in?"
+    
+    user_input_2 = gets.chomp.to_i
+      while user_input_2.to_i < -40 || user_input_2.to_i > 110 
+        puts "\nWhoa that's crazy...please enter a value between -40 and 110" 
+        user_input_2 = gets.chomp.to_i
+      end 
+    
+      while user_input_1 < user_input_2 
+        puts "\nUh oh, you can't hava a minimum temperature that is higher than your maximum temperature; please enter a lower value"
+          user_input_2 = gets.chomp.to_i 
+      end
+    
+      while user_input_2.to_i < -40 || user_input_2.to_i > 110 
+        puts "\nWhoa that's crazy...please enter a value between -40 and 110" 
+        user_input_2 = gets.chomp.to_i
+      end 
+    
+    puts "\nNow tell me maximum percentage-chance of rain you're willing to tolerate?"
+    user_input_3 = gets.chomp.to_i
+      while user_input_3.to_i < 0 || user_input_3.to_i > 100 
+        puts "\nHuh? I don't get that answer...please enter a value between 0 and 100" 
+        user_input_3 = gets.chomp.to_i
+      end
+    
+    puts "\nFinally, what is the maximum wind-speed (miles-per-hour) you're willing to tolerate?"
+    user_input_4 = gets.chomp.to_i 
+      while user_input_4.to_i < 0 || user_input_4.to_i > 200 
+        puts "\nHuh? I don't get that answer...please enter a value between 0 and 200" 
+        user_input_4 = gets.chomp.to_i
+      end
+    
+    
+    WEATHER_PARAMETERS.use_user_defined_parameters(user_input_1, user_input_2, user_input_3, user_input_4)
+    
+    puts "\nCool, so here's where we stand:"
+    puts "Maximum Temperature: #{WEATHER_PARAMETERS.hot_parameter}°"
+    puts "Minimum Temperature: #{WEATHER_PARAMETERS.cold_parameter}°"
+    puts "Maximum Chance of Precipitation: #{WEATHER_PARAMETERS.rain_parameter}%"
+    puts "Maximum Allowable Windspeed: #{WEATHER_PARAMETERS.wind_parameter}mph"
+    
+    puts "\nPress any key to continue"
+    user_input = gets.chomp
   end 
 
   def select_start_time
@@ -126,8 +204,49 @@ class BoulderWeatherCheck::CLI
   end 
   
   def is_the_weather_suitable
-    puts "\nis (is_there_any_problamatic_weather?) correct?\n"
+    WEATHER_PARAMETERS.run_parameters_against_problematic_criteria
+    if WEATHER_PARAMETERS.is_there_any_problamatic_weather? == true
+      puts "\nYou can't go outside, the weather's not suitable" 
+    else
+      puts "\nCool, the weather's gonna be OK outside"
+      option_to_see_weather_by_the_hour
+      option_to_continue 
+      good_bye
+    end 
   end 
+  
+#myparams.is_there_any_problamatic_weather?
+
+#if myparams.is_there_any_problamatic_weather? == true 
+#  puts "You can't go outside, the weather's not suitable" 
+#else 
+#  puts "Cool, the weather's gonna be OK outside"
+#end 
+  
+  # //////////////////////////////////
+    # //////////////////////////////////
+      # //////////////////////////////////
+        # //////////////////////////////////
+          # //////////////////////////////////
+  
+  
+  
+  
+    # //////////////////////////////////
+      # //////////////////////////////////
+        # //////////////////////////////////
+          # //////////////////////////////////
+            # //////////////////////////////////
+              # //////////////////////////////////
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   def option_to_see_problematic_weather_by_the_hour 
      puts "\nWould you like to see the problematic weather by the hour for the period of time you selected? (y/n)"
@@ -140,11 +259,30 @@ class BoulderWeatherCheck::CLI
         user_input = gets.chomp.downcase
       end 
     end 
-    puts "\nthis is where you put the (display_problematic_weather) method" 
+    puts "\n" 
+#    WEATHER_PARAMETERS.run_parameters_against_problematic_criteria
+    WEATHER_PARAMETERS.list_out_hours_with_problamatic_weather
+#    show_problems = WEATHER_PARAMETERS.list_out_hours_with_problamatic_weather 
+#    if WEATHER_PARAMETERS.is_there_any_problamatic_weather? == false
+#      puts "Yay! it looks like there's no problematic weather so you can go outside at this time!"
+#    else 
+#      show_problems 
+#    end 
   end 
   
+  def display_weather
+    WeatherDatabase.all.map do |hour|
+      puts "#{hour.time}, Conditions:"
+      puts "Temperature feels like: #{hour.temperature}°"
+      puts "Chance of precipitation: #{hour.rain}%"
+      puts "Cloud conditions: #{hour.cloud}"
+      puts "Windspeed is #{hour.wind}mph"
+      puts
+    end
+  end
+  
   def option_to_see_weather_by_the_hour 
-    puts "\nWould you like to see the complete weather listing by the hour for the period of time you selected? (y/n)"
+    puts "\nWould you like to see the complete weather listing anyways for the period of time you selected? (y/n)"
     user_input = gets.chomp.downcase
     while user_input != "y" && user_input != "yes"
       if user_input == "n" || user_input == "no"
@@ -154,7 +292,8 @@ class BoulderWeatherCheck::CLI
         user_input = gets.chomp.downcase
       end 
     end 
-    puts "\nthis is where you put the (display_weather) method"
+    puts ""
+    display_weather
   end
   
   def simple_yes_or_no_question(user_input) 
@@ -172,19 +311,13 @@ class BoulderWeatherCheck::CLI
     puts "\nWould you like to run the program again and check another timeslot (y/n)?"
     user_input = gets.chomp.downcase
     simple_yes_or_no_question(user_input)
-    puts "\nthis is where you insert: (delete_database)\n"
+    WeatherDatabase.delete_all
+    WEATHER_PARAMETERS.delete_all
     puts 
     BoulderWeatherCheck::CLI.new.call
   end  
 end
 
-BoulderWeatherCheck::CLI.new.call
-
-
-# Add a (start_and_end_times_different) method
-
-# Add a method that will allow the user to set the 
-# max temperature they are comfortable with?
 
 
 
