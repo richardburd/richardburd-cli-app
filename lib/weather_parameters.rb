@@ -23,4 +23,4 @@ class WeatherParameters
     self.rain_parameter = rain_parameter
     self.wind_parameter = wind_parameter
   end
-end 
+end

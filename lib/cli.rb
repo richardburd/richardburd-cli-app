@@ -2,7 +2,6 @@ require_relative '../config/environment'
 
 class BoulderWeatherCheck
 end
-
 # This is the CLI Controller that encapsulates the business logic
 # I sorta copied Avi's video on the subject; but now that I'm here, I don't
 # see the value in the ::CLI vs. just putting all this in the BoulderWeatherCheck class

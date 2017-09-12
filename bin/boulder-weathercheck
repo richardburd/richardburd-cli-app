@@ -2,4 +2,5 @@
 
 require_relative '../config/environment'
 
-BoulderWeatherCheck::CLI.new.call
+
+puts "can you see me?"
