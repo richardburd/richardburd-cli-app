@@ -10,9 +10,10 @@ class BoulderWeatherCheck::CLI
     update_warning
     select_start_time
     select_end_time
+    start_and_end_times_different
     run_program
     option_to_see_weather_by_the_hour
-#    option_to_continue 
+    option_to_continue 
     good_bye
   end
 
@@ -54,6 +55,13 @@ class BoulderWeatherCheck::CLI
     end
   end 
   
+  def start_and_end_times_different 
+    if self.start_hour == self.end_hour
+      puts "\nOops, ther start & end times are exactly the same; this means I'll crash when I go to grab my data since I can only see 12 hours into the future from the current hour. \n"
+      select_start_time
+      select_end_time
+    end 
+  end 
 
   def valid_entry(input)
     x = input.to_i 
@@ -71,6 +79,7 @@ class BoulderWeatherCheck::CLI
   
   def good_bye
     puts "\nThank you and see you next time."
+    exit
   end
   
   def update_warning 
@@ -85,24 +94,27 @@ class BoulderWeatherCheck::CLI
   
   def run_program 
     puts "\nOk let me check the weather between #{self.start_hour} and #{self.end_hour}, this might take a sec..."
+    puts "\nthis is where you want to insert the (when_r_u_going_out(start, finish)) method"
   end 
   
   def option_to_see_weather_by_the_hour 
     puts "\nWould you like to see the weather by the hour for the period of time you selected? (y/n)"
     user_input = gets.chomp.downcase
-    simple_yes_or_no_question(user_input)
+    while user_input != "y" && user_input != "yes"
+      if user_input == "n" || user_input == "no"
+        option_to_continue
+      else
+        puts "Huh!?  type y or n"
+        user_input = gets.chomp.downcase
+      end 
+    end 
     puts "\nthis is where you put the (display_weather) method"
   end
-  
-  def option_to_continue 
-    puts "Would you like to enter another timeslot?"
-  end 
   
   def simple_yes_or_no_question(user_input) 
     while user_input != "y" && user_input != "yes"
       if user_input == "n" || user_input == "no"
         good_bye
-        exit
       else
         puts "Huh!?  type y or n"
         user_input = gets.chomp.downcase
@@ -111,9 +123,11 @@ class BoulderWeatherCheck::CLI
   end 
   
   def option_to_continue 
-    puts "\nWould you like to run the program again and check another timeslot?"
+    puts "\nWould you like to run the program again and check another timeslot (y/n)?"
+    user_input = gets.chomp.downcase
     simple_yes_or_no_question(user_input)
-    puts "this is where you insert: (delete_database)"
+    puts "\nthis is where you insert: (delete_database)\n"
+    puts 
     BoulderWeatherCheck::CLI.new.call
   end  
 end
@@ -121,9 +135,7 @@ end
 BoulderWeatherCheck::CLI.new.call
 
 
-# Add a method (option_to_continue) that will delete the current 
-# WeatherDatabase and allow you to start the program 
-# all over again.
+# Add a (start_and_end_times_different) method
 
 # Add a method that will allow the user to set the 
 # max temperature they are comfortable with?
