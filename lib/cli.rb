@@ -8,11 +8,11 @@ class BoulderWeatherCheck::CLI
   def call
     program_use
     update_warning
-    custom_or_default_weather_parameters
     select_start_time
     select_end_time
     start_and_end_times_different
     run_program
+    custom_or_default_weather_parameters
     is_the_weather_suitable
     option_to_see_problematic_weather_by_the_hour
     option_to_see_weather_by_the_hour
@@ -33,7 +33,7 @@ class BoulderWeatherCheck::CLI
       I'm smart so you can be lazy! I will figure out
       if you want 'am' or 'pm' times; keep in mind that I
       can only predict the weather 12 hours out from now,
-      so don't ask me for anything else.
+      so do not ask me for anything else or I'll crash on you.
     DOC
     puts "\nPress any key to continue"
     user_input = gets.chomp.downcase
@@ -41,7 +41,7 @@ class BoulderWeatherCheck::CLI
   end
   
   def custom_or_default_weather_parameters 
-    puts "Which weather settings would you prefer to use?"
+    puts "\nWhich weather settings would you prefer to use?"
     puts ""
     puts "    1.) Default weather settings"
     puts ""
@@ -52,14 +52,18 @@ class BoulderWeatherCheck::CLI
       custom_weather_parameters   
     else 
       while user_input != "1"
-      puts "Huh!?  type 1 or 2"
+        puts "Huh!?  type 1 or 2"
+        user_input = gets.chomp.downcase
+      end
+      puts "you have chosen to use my default parameters."
+      
+      puts "press any key to continue"
       user_input = gets.chomp.downcase
-    end 
     end
   end 
   
   def custom_weather_parameters 
-    puts "\nthe (custom_weather_parameters) method goes here, press any key to continue\n"
+    puts "\nwhat is the max air temperature you're willing to go outside in?\n"
     user_input = gets.chomp.downcase
   end 
 
