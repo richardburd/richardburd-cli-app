@@ -13,8 +13,8 @@ require 'pry'
 # You would use this require_relative if you don't have the require_all gem installed.
 # This would prevent your program from running code you don't want or need in your subdirectories
 # Avi says to just use the require_all gem instead
-require_relative '../lib/engine/placeholder'
-require_relative '../lib/engine/placeholder'
+# require_relative '../lib/engine/placeholder'
+# require_relative '../lib/engine/placeholder'
 
 # right now this require_all isn't working so I commented it out till I get to fixing it.
 # require_all 'lib'
