@@ -333,7 +333,15 @@ class BoulderWeatherCheck::CLI
         user_input = gets.chomp.downcase
       end 
     end 
-    puts "\nthis is where you put the (display_problematic_weather) method" 
+    puts "\n" 
+#    WEATHER_PARAMETERS.run_parameters_against_problematic_criteria
+    WEATHER_PARAMETERS.list_out_hours_with_problamatic_weather
+#    show_problems = WEATHER_PARAMETERS.list_out_hours_with_problamatic_weather 
+#    if WEATHER_PARAMETERS.is_there_any_problamatic_weather? == false
+#      puts "Yay! it looks like there's no problematic weather so you can go outside at this time!"
+#    else 
+#      show_problems 
+#    end 
   end 
   
   def option_to_see_weather_by_the_hour 
