@@ -1,4 +1,35 @@
 module ProblematicWeatherDefined
+  def too_hot?(database, parameter)
+    database.all.each do |hour| 
+      if hour.temperature > parameter 
+        hour.problems << "It's gona be too hot this hour!"
+      end
+    end
+  end
+
+  def too_cold?(database, parameter)
+    database.all.each do |hour| 
+      if hour.temperature < parameter 
+        hour.problems << "It's gona be too cold this hour!"
+      end
+    end
+  end
+
+  def too_rainy?(database, parameter)
+    database.all.each do |hour| 
+      if hour.rain > parameter 
+        hour.problems << "It's probably gonna rain this hour!"
+      end
+    end
+  end 
+
+  def too_windy?(database, parameter)
+    database.all.each do |hour| 
+      if hour.wind > parameter 
+        hour.problems << "It's gona be too windy this hour!"
+      end
+    end
+  end  
   
 end 
 
