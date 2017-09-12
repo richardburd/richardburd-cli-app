@@ -47,7 +47,7 @@ module ProblematicWeatherDefined
 
   def too_windy?(database, parameter)
     database.all.each do |hour| 
-      if hour.temperature > parameter 
+      if hour.wind > parameter 
         hour.problems << "It's gona be too windy this hour!"
       end
     end
@@ -86,14 +86,15 @@ class WeatherParameters
   attr_accessor :hot_parameter, :cold_parameter, :rain_parameter, :wind_parameter
   include ProblematicWeatherDefined
   include CheckForProblematicWeather
-
+  @@all = []
+  
   def self.delete_all
     @@all = []
   end
   
   def use_default_parameters 
-    self.hot_parameter = 75 
-    self.cold_parameter = 50
+    self.hot_parameter = 80 
+    self.cold_parameter = 60
     self.rain_parameter = 20
     self.wind_parameter = 18
   end 
@@ -116,6 +117,7 @@ end
 # This is the CLI Controller that encapsulates the business logic
 class BoulderWeatherCheck::CLI
   attr_accessor :start_hour, :end_hour
+  WEATHER_PARAMETERS = WeatherParameters.new
   
   def call
     program_use
@@ -175,11 +177,11 @@ class BoulderWeatherCheck::CLI
     end
   end 
   
-
+  
   # go back after this works and make it so 
   # you cannot enter in an invalid value
-  def custom_weather_parameters 
-
+  def custom_weather_parameters
+    
     def min_max_values(input) 
       while input.to_i < -40 || input.to_i > 130 
         puts "\nWhoa that's crazy...please enter a value between -40 and 130" 
@@ -187,7 +189,7 @@ class BoulderWeatherCheck::CLI
         input
       end 
     end 
-
+    
 
 #      while first_input < second_input 
 #        puts "\nUh oh, you can't hava a minimum temperature that is higher than your maximum temperature; please enter a lower value"
@@ -246,7 +248,7 @@ class BoulderWeatherCheck::CLI
     
     puts "\nPress any key to continue"
     user_input = gets.chomp
-  end  
+  end 
 
   def select_start_time
     puts "\nEnter the first hour you would like to go out or type exit to leave the program"
@@ -322,6 +324,39 @@ class BoulderWeatherCheck::CLI
     end 
   end 
   
+#myparams.is_there_any_problamatic_weather?
+
+#if myparams.is_there_any_problamatic_weather? == true 
+#  puts "You can't go outside, the weather's not suitable" 
+#else 
+#  puts "Cool, the weather's gonna be OK outside"
+#end 
+  
+  # //////////////////////////////////
+    # //////////////////////////////////
+      # //////////////////////////////////
+        # //////////////////////////////////
+          # //////////////////////////////////
+  
+  
+  
+  
+    # //////////////////////////////////
+      # //////////////////////////////////
+        # //////////////////////////////////
+          # //////////////////////////////////
+            # //////////////////////////////////
+              # //////////////////////////////////
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   def option_to_see_problematic_weather_by_the_hour 
      puts "\nWould you like to see the problematic weather by the hour for the period of time you selected? (y/n)"
     user_input = gets.chomp.downcase
@@ -354,7 +389,7 @@ class BoulderWeatherCheck::CLI
       puts
     end
   end
-
+  
   def option_to_see_weather_by_the_hour 
     puts "\nWould you like to see the complete weather listing anyways for the period of time you selected? (y/n)"
     user_input = gets.chomp.downcase
@@ -385,7 +420,8 @@ class BoulderWeatherCheck::CLI
     puts "\nWould you like to run the program again and check another timeslot (y/n)?"
     user_input = gets.chomp.downcase
     simple_yes_or_no_question(user_input)
-    puts "\nthis is where you insert: (delete_database)\n"
+    WeatherDatabase.delete_all
+    WEATHER_PARAMETERS.delete_all
     puts 
     BoulderWeatherCheck::CLI.new.call
   end  
@@ -442,6 +478,7 @@ end
 #else 
 #  puts "Cool, the weather's gonna be OK outside"
 #end 
+
 
 
 
