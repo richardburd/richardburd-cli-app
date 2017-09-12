@@ -175,10 +175,78 @@ class BoulderWeatherCheck::CLI
     end
   end 
   
+
+  # go back after this works and make it so 
+  # you cannot enter in an invalid value
   def custom_weather_parameters 
-    puts "\nwhat is the max air temperature you're willing to go outside in?\n"
-    user_input = gets.chomp.downcase
-  end 
+
+    def min_max_values(input) 
+      while input.to_i < -40 || input.to_i > 130 
+        puts "\nWhoa that's crazy...please enter a value between -40 and 130" 
+        input = gets.chomp.to_i
+        input
+      end 
+    end 
+
+
+#      while first_input < second_input 
+#        puts "\nUh oh, you can't hava a minimum temperature that is higher than your maximum temperature; please enter a lower value"
+#        second_input = gets.chomp.to_i 
+#      end
+
+    
+    puts "\nWhat is the maximum air temperature (°F) you're willing to go outside in?\n"
+    
+    user_input_1 = gets.chomp.to_i
+      while user_input_1.to_i < -20 || user_input_1.to_i > 130 
+        puts "\nWhoa that's crazy...please enter a value between -20 and 130" 
+        user_input_1 = gets.chomp.to_i
+      end 
+      
+    puts "\nOK cool...what is the minimum air temperature (°F) you're willing to go out in?"
+    
+    user_input_2 = gets.chomp.to_i
+      while user_input_2.to_i < -40 || user_input_2.to_i > 110 
+        puts "\nWhoa that's crazy...please enter a value between -40 and 110" 
+        user_input_2 = gets.chomp.to_i
+      end 
+    
+      while user_input_1 < user_input_2 
+        puts "\nUh oh, you can't hava a minimum temperature that is higher than your maximum temperature; please enter a lower value"
+          user_input_2 = gets.chomp.to_i 
+      end
+    
+      while user_input_2.to_i < -40 || user_input_2.to_i > 110 
+        puts "\nWhoa that's crazy...please enter a value between -40 and 110" 
+        user_input_2 = gets.chomp.to_i
+      end 
+    
+    puts "\nNow tell me maximum percentage-chance of rain you're willing to tolerate?"
+    user_input_3 = gets.chomp.to_i
+      while user_input_3.to_i < 0 || user_input_3.to_i > 100 
+        puts "\nHuh? I don't get that answer...please enter a value between 0 and 100" 
+        user_input_3 = gets.chomp.to_i
+      end
+    
+    puts "\nFinally, what is the maximum wind-speed (miles-per-hour) you're willing to tolerate?"
+    user_input_4 = gets.chomp.to_i 
+      while user_input_4.to_i < 0 || user_input_4.to_i > 200 
+        puts "\nHuh? I don't get that answer...please enter a value between 0 and 200" 
+        user_input_4 = gets.chomp.to_i
+      end
+    
+    
+    WEATHER_PARAMETERS.use_user_defined_parameters(user_input_1, user_input_2, user_input_3, user_input_4)
+    
+    puts "\nCool, so here's where we stand:"
+    puts "Maximum Temperature: #{WEATHER_PARAMETERS.hot_parameter}°"
+    puts "Minimum Temperature: #{WEATHER_PARAMETERS.cold_parameter}°"
+    puts "Maximum Chance of Precipitation: #{WEATHER_PARAMETERS.rain_parameter}%"
+    puts "Maximum Allowable Windspeed: #{WEATHER_PARAMETERS.wind_parameter}mph"
+    
+    puts "\nPress any key to continue"
+    user_input = gets.chomp
+  end  
 
   def select_start_time
     puts "\nEnter the first hour you would like to go out or type exit to leave the program"
