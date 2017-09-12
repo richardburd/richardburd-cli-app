@@ -86,6 +86,10 @@ class WeatherParameters
   attr_accessor :hot_parameter, :cold_parameter, :rain_parameter, :wind_parameter
   include ProblematicWeatherDefined
   include CheckForProblematicWeather
+
+  def self.delete_all
+    @@all = []
+  end
   
   def use_default_parameters 
     self.hot_parameter = 75 
