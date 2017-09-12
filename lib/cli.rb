@@ -109,6 +109,13 @@ class BoulderWeatherCheck::CLI
       end 
     end 
   end 
+  
+  def option_to_continue 
+    puts "\nWould you like to run the program again and check another timeslot?"
+    simple_yes_or_no_question(user_input)
+    puts "this is where you insert: (delete_database)"
+    BoulderWeatherCheck::CLI.new.call
+  end  
 end
 
 BoulderWeatherCheck::CLI.new.call
