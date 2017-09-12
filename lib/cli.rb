@@ -356,7 +356,7 @@ class BoulderWeatherCheck::CLI
   end
 
   def option_to_see_weather_by_the_hour 
-    puts "\nWould you like to see the complete weather listing by the hour for the period of time you selected? (y/n)"
+    puts "\nWould you like to see the complete weather listing anyways for the period of time you selected? (y/n)"
     user_input = gets.chomp.downcase
     while user_input != "y" && user_input != "yes"
       if user_input == "n" || user_input == "no"
@@ -366,7 +366,8 @@ class BoulderWeatherCheck::CLI
         user_input = gets.chomp.downcase
       end 
     end 
-    puts "\nthis is where you put the (display_weather) method"
+    puts ""
+    display_weather
   end
   
   def simple_yes_or_no_question(user_input) 
