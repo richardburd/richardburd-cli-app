@@ -1,3 +1,7 @@
+require 'nokogiri'
+require 'open-uri'
+require 'pry'
+
 require_relative '../config/environment'
 # Zenmaster Avi hasn't taught us how to make actual rspec tests yet,
 # but he has explained the theory behind test-driven-development (TDD)
@@ -9,6 +13,10 @@ require_relative '../config/environment'
 # this file will produce and error and I'll know I have to go back & re-work the scraping.
 # If everything is working correctly, this test should spit out a series of numbers with no
 # errors; these numbers are the raw weather data
+
+puts "\nOK so you should see a bunch of integers and times...if the weather.com HTML's structure changed at all, you should see an error message somewhere in here."
+puts "\nAlso, look at the times, if the current hour is before the :45 minute mark, the first time shown should be the current hour, if it's currently past the :45 minute mark, the next hour should be the first one shown"
+puts "\nYou should see about 12 to 16 hours out into the future, if you have fewer than 12 hours listed, the 'Boulder-WeatherCheck' program will probably break :("
 
 def single_hour_scraper
   html = open("https://weather.com/weather/hourbyhour/l/Boulder+CO+USCO0038:1:US")
@@ -81,6 +89,9 @@ puts hour_scraper
 puts rain_scraper
 puts temperature_scraper
 puts cloud_scraper
+puts "\nOK so you should see a bunch of integers and times...if the weather.com HTML's structure changed at all, you should see an error message somewhere in here."
+puts "\nAlso, look at the times, if the current hour is before the :45 minute mark, the first time shown should be the current hour, if it's currently past the :45 minute mark, the next hour should be the first one shown"
+puts "\nYou should see about 12 to 16 hours out into the future, if you have fewer than 12 hours listed, the 'Boulder-WeatherCheck' program will probably break :("
 # //////////////////////////////////////////////////
 # //////////////////////////////////////////////////
 # //////////////////////////////////////////////////
