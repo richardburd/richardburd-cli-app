@@ -3,6 +3,7 @@ require 'bundler'
 # Require the gems from the gemfile
 Bundler.require
 
+require_all 'lib'
 
 # this video here has relevant info for establishing requirements:
 # https://www.youtube.com/watch?v=XBgZLm-sdl8
@@ -13,16 +14,15 @@ require 'pry'
 # You would use this require_relative if you don't have the require_all gem installed.
 # This would prevent your program from running code you don't want or need in your subdirectories
 # Avi says to just use the require_all gem instead
-require_relative '../lib/engine/placeholder'
-require_relative '../lib/engine/placeholder'
 
-# right now this require_all isn't working so I commented it out till I get to fixing it.
-# require_all 'lib'
+# OK so the require_all doesn't seem to be working after I pull in an updated GitHub repo so
+# for now foreget it, I have the illustration with all the folders so I'm pretty good to just
+# keep track of all the require_relative statements for now:
 
-# so I don't know the difference between a "base fork" and a "head fork" so I'm gonna re-push this up and see
-# which is which...I'm having no problems sending Red Burd's changes to Blud Burd, but when
-# I try & push the newly updated Blue Burd repo to Greed Burd...everything gets screwed up :(
+#require_relative '../lib/cli'
+#require_relative '../lib/weather_parameters'
+#require_relative '../lib/modules'
+#require_relative '../lib/weather_database'
 
-
-# OK so this time I'm going to try & update Red Burd's repo and then from there update it directly to
-# Green Burds repo since that one is the master repo.
+# OK so now I have require_all working as I was missing the "require_all 'lib'" statement before.
+# the four require_relative statements are still there above just for my reference.
