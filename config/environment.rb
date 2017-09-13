@@ -5,6 +5,11 @@ Bundler.require
 
 require_all 'lib'
 
+# So for some reason the require_all 'lib' works but this one will not.
+# I have to use the require_relative statements below that refer to the
+# individual tests themselves.
+# require_all 'tests'
+
 # this video here has relevant info for establishing requirements:
 # https://www.youtube.com/watch?v=XBgZLm-sdl8
 require 'nokogiri'
@@ -19,11 +24,13 @@ require 'pry'
 # for now foreget it, I have the illustration with all the folders so I'm pretty good to just
 # keep track of all the require_relative statements for now:
 
+require_relative '../lib/check_weather'
 require_relative '../lib/cli'
-require_relative '../lib/weather_parameters'
+require_relative '../lib/data_requester'
+require_relative '../lib/data_scraper'
 require_relative '../lib/modules'
 require_relative '../lib/weather_database'
-require_relative '../lib/data_scraper'
+require_relative '../lib/weather_parameters'
 
 require_relative '../tests/data_scraper_test.rb'
 require_relative '../tests/fake_test_weather_data.rb'
