@@ -14,4 +14,15 @@ class DataRequester
     puts info.cloud = data.weather_scraper_1(timeslot, ".hidden-cell-sm")
     puts info.wind = data.weather_scraper_1(timeslot, ".wind", ".gsub(/[a-zA-Z]/, '').to_i")
   end
+
+
+#  def request_of_fake_data_for_a_particular_hour_in_time(timeslot)
+#    data = FakeTestWeatherData.new
+#    info = WeatherDatabase.new
+#    puts info.time = data.time[timeslot.to_i]
+#    puts info.rain = data.rain[timeslot.to_i]
+#    puts info.temperature = data.temperature[timeslot.to_i]
+#    puts info.cloud = data.cloud[timeslot.to_i]
+#    puts info.wind = data.wind[timeslot.to_i]
+#  end
 end
