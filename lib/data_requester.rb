@@ -7,6 +7,12 @@ class DataRequester
   # a series of hours is done in the CheckWeather class.
   def request_data_for_a_particular_hour_in_time(timeslot)
     data = DataScraper.new
+
+    # OK so this is where the actual weather database is created.
+    # Each time this method runs, it creates one instance of the WeatherDatabase class.
+    # The <<time_of_the_day_analysed>> method upstream (in the CheckWeather class) it what
+    # does the actual iterations; it makes sure that EACH HOUR the user requests to be analyzed
+    # actually gets analyzed; this method is only responsible for one hour of time.
     info = WeatherDatabase.new
     puts info.time = data.weather_scraper_1(timeslot, ".hourly-time .dsx-date")
     puts info.rain = data.weather_scraper_1(timeslot, ".precip div", ".gsub('%', '').to_i")
