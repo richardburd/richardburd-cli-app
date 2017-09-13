@@ -60,6 +60,13 @@ module CheckForProblematicWeather
     end
   end
 
+# The DataQuery module is the central engine of the whole program; it must accomplish the following tasks:
+#   1.) take in a start & end time from the user (from the CLI)
+#   2.) be smart enough to know if the user means am or pm, with the assumption the user won't enter a
+#       time that is more than 11 hours out into the future, or the program will break.
+#   3.) deal with the URL updates that take place at the .45 minute mark every hour
+#   4.) send the user's start & end times to the <<time_of_the_day_analysed method in the CheckWeather class
+#
   module DataQuery
     def when_r_u_going_out(start, finish)
       first_index = convert_todays_time_into_integers(start)
@@ -106,3 +113,4 @@ module CheckForProblematicWeather
     end
   end
 end
+ 
