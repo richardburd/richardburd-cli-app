@@ -59,4 +59,50 @@ module CheckForProblematicWeather
       end
     end
   end
+
+  module DataQuery
+    def when_r_u_going_out(start, finish)
+      first_index = convert_todays_time_into_integers(start)
+      second_index = convert_todays_time_into_integers(finish)
+      time_of_the_day_analysed(first_index, second_index)
+    end
+
+    def convert_todays_time_into_integers(hour_you_are_going_out)
+    # If I scrape the first instance [0] of hour from weather.com, I will get
+    # the value of either:
+    # 1.) The current hour if the current minute count is less than 45
+    # 2.) The next hour if the current minute count is more than 45
+    # This method is designed to deal with that issue
+    # After the :45 minute mark, the program can no longer scrape weather data for
+    # the current hour and so the first instanc [0] on weather.com will be for the
+    # very next hour instead of the current hour.
+      def time_offset(hour_you_are_going_out, eleven_or_12)
+        x = Time.now.hour - 6 #=> This line of code makes it custom to Colorado Mountain Time (UTC - 6)
+        if x >= 1
+          x = x - eleven_or_12.to_i
+        else
+          x = x
+        end
+        z = hour_you_are_going_out.to_i - x
+        if z < 0
+          z + 12
+        elsif z > 12
+          z - 12
+        elsif z == 12
+          z = 0
+        else
+          z
+        end
+      end
+
+      x = Time.now
+      y = x.min
+      if y < 45 #=> This is the point at which the weather.com page seems to update, but not always
+        time_offset(hour_you_are_going_out, 12)
+      else
+        puts "Oops, my weather data updates between the 45 minute mark and the next hour, so I might break, do you want to continue? (y/n)"
+        time_offset(hour_you_are_going_out, 11)
+      end
+    end
+  end
 end
