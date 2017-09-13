@@ -14,11 +14,12 @@ class DataRequester
     # does the actual iterations; it makes sure that EACH HOUR the user requests to be analyzed
     # actually gets analyzed; this method is only responsible for one hour of time.
     info = WeatherDatabase.new
-    puts info.time = data.weather_scraper_1(timeslot, ".hourly-time .dsx-date")
-    puts info.rain = data.weather_scraper_1(timeslot, ".precip div", ".gsub('%', '').to_i")
-    puts info.temperature = data.weather_scraper_1(timeslot, ".feels span", ".gsub('°', '').to_i")
-    puts info.cloud = data.weather_scraper_1(timeslot, ".hidden-cell-sm")
-    puts info.wind = data.weather_scraper_1(timeslot, ".wind", ".gsub(/[a-zA-Z]/, '').to_i")
+    info.time = data.weather_scraper_1(timeslot, ".hourly-time .dsx-date")
+    info.rain = data.weather_scraper_1(timeslot, ".precip div", ".gsub('%', '').to_i")
+    info.temperature = data.weather_scraper_1(timeslot, ".feels span", ".gsub('°', '').to_i")
+    info.cloud = data.weather_scraper_1(timeslot, ".hidden-cell-sm")
+    info.wind = data.weather_scraper_1(timeslot, ".wind", ".gsub(/[a-zA-Z]/, '').to_i")
+    puts "...Grabbing data for the #{info.time} timeblock"
   end
 
 # The purpose of this alternative method is to utilize the "fake_weather_test_data" should the actual
