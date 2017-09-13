@@ -206,7 +206,8 @@ class BoulderWeatherCheck::CLI
 
   def run_program
     puts "\nOk let me check the weather between #{self.start_hour} and #{self.end_hour}, this might take a sec..."
-    puts "\nthis is where you want to insert the (when_r_u_going_out(start, finish)) method"
+    go = CheckWeather.new
+    go.when_r_u_going_out(self.start_hour, self.end_hour)
   end
 
   def is_the_weather_suitable
@@ -318,7 +319,7 @@ class BoulderWeatherCheck::CLI
     user_input = gets.chomp.downcase
     simple_yes_or_no_question(user_input)
     WeatherDatabase.delete_all
-    WEATHER_PARAMETERS.delete_all
+    WeatherParameters.delete_all
     puts
     BoulderWeatherCheck::CLI.new.call
   end

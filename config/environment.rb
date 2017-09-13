@@ -32,9 +32,9 @@ require_relative '../lib/modules'
 require_relative '../lib/weather_database'
 require_relative '../lib/weather_parameters'
 
-require_relative '../tests/data_scraper_test.rb'
-require_relative '../tests/fake_test_weather_data.rb'
-require_relative '../tests/foundation_scraper_test.rb'
+#require_relative '../tests/data_scraper_test.rb'
+#require_relative '../tests/fake_test_weather_data.rb'
+#require_relative '../tests/foundation_scraper_test.rb'
 
 # OK so now I have require_all working as I was missing the "require_all 'lib'" statement before.
 # the four require_relative statements are still there above just for my reference, and just incase
