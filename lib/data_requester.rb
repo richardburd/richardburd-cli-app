@@ -15,6 +15,9 @@ class DataRequester
     puts info.wind = data.weather_scraper_1(timeslot, ".wind", ".gsub(/[a-zA-Z]/, '').to_i")
   end
 
+# The purpose of this alternative method is to utilize the "fake_weather_test_data" should the actual
+# scraper break for some reason...this way I can verify the rest of the program is running and isolate
+# the scrapper as the problem if it is.
 
 #  def request_of_fake_data_for_a_particular_hour_in_time(timeslot)
 #    data = FakeTestWeatherData.new
