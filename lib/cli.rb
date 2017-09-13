@@ -78,7 +78,6 @@ class BoulderWeatherCheck::CLI
   end
 
   def custom_weather_parameters
-
     def min_max_values(input)
       while input.to_i < -40 || input.to_i > 130
         puts "\nWhoa that's crazy...please enter a value between -40 and 130"
