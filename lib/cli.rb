@@ -12,6 +12,9 @@ end
 # I sorta copied Avi's video on the subject; but now that I'm here, I don't
 # see the value in the ::CLI vs. just putting all this in the BoulderWeatherCheck class
 # directly instead.
+
+# Apparently this is called a "namespace" and it's just good convention to use them even if
+# the actual class outside the namespace does nothing at all but sit there.
 class BoulderWeatherCheck::CLI
   attr_accessor :start_hour, :end_hour
   WEATHER_PARAMETERS = WeatherParameters.new
