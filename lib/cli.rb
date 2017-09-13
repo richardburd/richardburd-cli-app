@@ -89,14 +89,16 @@ class BoulderWeatherCheck::CLI
     puts "\nWhat is the maximum air temperature (°F) you're willing to go outside in?\n"
 
     user_input_1 = gets.chomp.to_i
-      while user_input_1.to_i < -20 || user_input_1.to_i > 130
-        puts "\nWhoa that's crazy...please enter a value between -20 and 130"
-        user_input_1 = gets.chomp.to_i
-      end
+      valid_value(user_input_1, "-40", "110")
+#     while user_input_1.to_i < -40 || user_input_1.to_i > 110
+#       puts "\nWhoa that's crazy...please enter a value between -40 and 110"
+#       user_input_1 = gets.chomp.to_i
+#     end
 
     puts "\nOK cool...what is the minimum air temperature (°F) you're willing to go out in?"
 
     user_input_2 = gets.chomp.to_i
+#     valid_value(user_input_2, "-40", "110")
       while user_input_2.to_i < -40 || user_input_2.to_i > 110
         puts "\nWhoa that's crazy...please enter a value between -40 and 110"
         user_input_2 = gets.chomp.to_i
@@ -165,6 +167,14 @@ class BoulderWeatherCheck::CLI
       select_start_time
       select_end_time
     end
+  end
+
+  def valid_value(input, min_value, max_value)
+    while input.to_i < min_value.to_i || input.to_i > max_value.to_i
+      puts "\nWhoa that's crazy...please enter a value between #{min_value} and #{max_value}"
+      input = gets.chomp.to_i
+    end
+    input
   end
 
   def valid_entry(input)
