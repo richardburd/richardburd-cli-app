@@ -146,7 +146,9 @@ module DataQuery
     if y < 45
       time_offset(hour_you_are_going_out, 12)
     else
-      puts "Oops, my weather data updates between the 45 minute mark and the next hour, so I might break, do you want to continue? (y/n)"
+  #    I don't need this while the program is working
+  #    But I'm leaving it here cause it's helpful for debugging
+  #    puts "Oops, my weather data updates between the 45 minute mark and the next hour, so I might break, do you want to continue? (y/n)"
       time_offset(hour_you_are_going_out, 11)
     end
   end

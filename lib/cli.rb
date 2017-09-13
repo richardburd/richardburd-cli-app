@@ -78,27 +78,31 @@ class BoulderWeatherCheck::CLI
   end
 
   def custom_weather_parameters
-    def min_max_values(input)
-      while input.to_i < -40 || input.to_i > 130
-        puts "\nWhoa that's crazy...please enter a value between -40 and 130"
-        input = gets.chomp.to_i
-        input
-      end
-    end
+
+# Right now this method doesn't do anything and is a candidate for deletion
+#    def min_max_values(input)
+#      while input.to_i < -40 || input.to_i > 130
+#        puts "\nWhoa that's crazy...please enter a value between -40 and 130"
+#        input = gets.chomp.to_i
+#        input
+#      end
+#    end
 
     puts "\nWhat is the maximum air temperature (°F) you're willing to go outside in?\n"
 
     user_input_1 = gets.chomp.to_i
-      valid_value(user_input_1, "-40", "110")
-#     while user_input_1.to_i < -40 || user_input_1.to_i > 110
-#       puts "\nWhoa that's crazy...please enter a value between -40 and 110"
-#       user_input_1 = gets.chomp.to_i
-#     end
+#     valid_value(user_input_1, "-40", "110")
+#     It seems I've successfully refactored this out with the valid_value method...testing continues.
+      while user_input_1.to_i < -40 || user_input_1.to_i > 110
+        puts "\nWhoa that's crazy...please enter a value between -40 and 110"
+        user_input_1 = gets.chomp.to_i
+      end
 
     puts "\nOK cool...what is the minimum air temperature (°F) you're willing to go out in?"
 
     user_input_2 = gets.chomp.to_i
 #     valid_value(user_input_2, "-40", "110")
+#     It seems I've successfully refactored this out with the valid_value method...testing continues.
       while user_input_2.to_i < -40 || user_input_2.to_i > 110
         puts "\nWhoa that's crazy...please enter a value between -40 and 110"
         user_input_2 = gets.chomp.to_i
