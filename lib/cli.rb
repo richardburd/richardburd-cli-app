@@ -1,5 +1,8 @@
 require_relative '../config/environment'
 
+#  you don't need this if you have the require_all 'lib' line on the environment
+#  require_relative 'weather_parameters'
+
 class BoulderWeatherCheck
 end
 # This is the CLI Controller that encapsulates the business logic

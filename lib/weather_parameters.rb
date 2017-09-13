@@ -1,5 +1,8 @@
 require_relative '../config/environment'
 
+#  you don't need this if you have the require_all 'lib' line on the environment
+#  require_relative 'modules'
+
 class WeatherParameters
   attr_accessor :hot_parameter, :cold_parameter, :rain_parameter, :wind_parameter
   include ProblematicWeatherDefined
