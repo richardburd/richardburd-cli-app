@@ -19,10 +19,12 @@ require 'pry'
 # for now foreget it, I have the illustration with all the folders so I'm pretty good to just
 # keep track of all the require_relative statements for now:
 
-#require_relative '../lib/cli'
-#require_relative '../lib/weather_parameters'
-#require_relative '../lib/modules'
-#require_relative '../lib/weather_database'
+require_relative '../lib/cli'
+require_relative '../lib/weather_parameters'
+require_relative '../lib/modules'
+require_relative '../lib/weather_database'
+require_relative '../lib/data_scraper'
 
 # OK so now I have require_all working as I was missing the "require_all 'lib'" statement before.
-# the four require_relative statements are still there above just for my reference.
+# the four require_relative statements are still there above just for my reference, and just incase
+# some poor user can't get the bundlre gem to work properly

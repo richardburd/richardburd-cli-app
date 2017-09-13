@@ -32,10 +32,7 @@ module ProblematicWeatherDefined
       end
     end
   end
-
 end
-
-
 
 module CheckForProblematicWeather
   def run_parameters_against_problematic_criteria
@@ -62,4 +59,4 @@ module CheckForProblematicWeather
       end
     end
   end
-end 
+end
