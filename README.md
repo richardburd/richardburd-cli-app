@@ -44,7 +44,7 @@ There are three GitHub accounts contributing to this project; they are all me [I
 
 ### Overview
 
-<p class='util--hide'> I started writing the URL scraping code on a single ruby file several weeks ago just to play around with Nokogiri a bit; that single ruby file (believe it or not) evolved into the whole program.  I never created a Git Repo or setup a proper working environment because I wasn’t that comfortable with GitHub to be honest, and so I wanted to just get my code working.  My strategy was to first get all the code working correctly and then make a proper Git repo and do some refactoring along the way.  The tool I used to organize the whole thing is my 'process-flow illustration’ SVG file; both the illustration and the original ruby file of the fully-working program are <a href='https://drive.google.com/open?id=0B4e44pJ1yCAtRjdXcWNMaG56bDQ'>available here</a> on my google drive.</p>
+<p class='util--hide'> I started writing the URL scraping code on a single ruby file several weeks ago just to play around with Nokogiri a bit; that single ruby file (believe it or not) evolved into the whole program.  I never created a Git Repo or setup a proper working environment because I wasn’t that comfortable with GitHub to be honest, and so I wanted to just get my code working.  My strategy was to first get all the code working correctly and then make a proper Git repo and do some refactoring along the way.  The tool I used to organize the whole thing is my 'process_flow_illustration.svg’ file; the original ruby file of the fully-working program is <a href='https://drive.google.com/open?id=0B4e44pJ1yCAtRjdXcWNMaG56bDQ'>available here</a> on my google drive.</p>
 
 ### Project Requirements
 
