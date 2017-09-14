@@ -1,5 +1,4 @@
 require_relative '../config/environment'
-require_relative 'data_scraper'
 
 # OK so this is more complicated than the "data_scraper_test" in the test suite.
 # The fundemental difference is the introduction of this "eval" method below.
