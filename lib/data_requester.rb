@@ -1,4 +1,6 @@
 require_relative '../config/environment'
+require_relative 'data_scraper'
+require_relative 'weather_database'
 
 class DataRequester
 
