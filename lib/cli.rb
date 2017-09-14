@@ -1,20 +1,11 @@
 require_relative '../config/environment'
-
-# you don't need this if you have the require_all 'lib' line on the environment
-# and you have the bundler gem properly installed.  This is here so I can learn how
-# to use require statements in lieu of the bundler gem, in case for some reason I'm
-# not using it.
 require_relative 'weather_parameters'
+require_relative 'check_weather'
+require_relative 'modules'
 
 class BoulderWeatherCheck
 end
-# This is the CLI Controller that encapsulates the business logic
-# I sorta copied Avi's video on the subject; but now that I'm here, I don't
-# see the value in the ::CLI vs. just putting all this in the BoulderWeatherCheck class
-# directly instead.
 
-# Apparently this is called a "namespace" and it's just good convention to use them even if
-# the actual class outside the namespace does nothing at all but sit there.
 class BoulderWeatherCheck::CLI
   attr_accessor :start_hour, :end_hour
   WEATHER_PARAMETERS = WeatherParameters.new
@@ -78,73 +69,30 @@ class BoulderWeatherCheck::CLI
   end
 
   def custom_weather_parameters
-
-# Right now this method doesn't do anything and is a candidate for deletion
-#    def min_max_values(input)
-#      while input.to_i < -40 || input.to_i > 130
-#        puts "\nWhoa that's crazy...please enter a value between -40 and 130"
-#        input = gets.chomp.to_i
-#        input
-#      end
-#    end
-
     puts "\nWhat is the maximum air temperature (°F) you're willing to go outside in?\n"
-
-    user_input_1 = gets.chomp.to_i
-      first_custom_input = valid_value(user_input_1, "-40", "110")
-#     It seems I've successfully refactored this out with the valid_value method...testing continues.
-#     while user_input_1.to_i < -40 || user_input_1.to_i > 110
-#       puts "\nWhoa that's crazy...please enter a value between -40 and 110"
-#       user_input_1 = gets.chomp.to_i
-#     end
-
+    user_input_1 = gets.chomp
+    first_custom_input = valid_value(user_input_1, "-40", "110")
     puts "\nOK cool...what is the minimum air temperature (°F) you're willing to go out in?"
 
-    user_input_2 = gets.chomp.to_i
-      second_custom_input = valid_value(user_input_2, "-40", "110")
-#     It seems I've successfully refactored this out with the valid_value method...testing continues.
-#     while user_input_2.to_i < -40 || user_input_2.to_i > 110
-#       puts "\nWhoa that's crazy...please enter a value between -40 and 110"
-#       user_input_2 = gets.chomp.to_i
-#     end
-
+    user_input_2 = gets.chomp
+    second_custom_input = valid_value(user_input_2, "-40", "110")
       while first_custom_input < second_custom_input
         puts "\nUh oh, you can't hava a minimum temperature that is higher than your maximum temperature; please enter a lower value"
-          second_custom_input = gets.chomp.to_i
+          second_custom_input = gets.chomp
+          second_custom_input = valid_value(second_custom_input, "-40", "110")
       end
 
-      # OK so you need this instance of valid_value after the previous comparrison:
-      # "first_custom_input < second_custom_input" because otherwise the program will
-      # not check again to make sure the "second_custom_input" is in fact within proper range.
-      second_custom_input = valid_value(second_custom_input, "-40", "110")
-
-#     This code was just replaced with the valid_value statement right above...
-#     ...so this code is slated for deletion after everything else is working 100%.
-#      while user_input_2.to_i < -40 || user_input_2.to_i > 110
-#        puts "\nWhoa that's crazy...please enter a value between -40 and 110"
-#        user_input_2 = gets.chomp.to_i
-#      end
+    # OK so you need this instance of valid_value after the previous comparrison:
+    # "first_custom_input < second_custom_input" because otherwise the program will
+    # not check again to make sure the "second_custom_input" is in fact within proper range.
+    second_custom_input = valid_value(second_custom_input, "-40", "110")
 
     puts "\nNow tell me maximum percentage-chance of rain you're willing to tolerate?"
-    user_input_3 = gets.chomp.to_i
-      third_custom_input = valid_value(user_input_3, "0", "100")
-
-
-#     while user_input_3.to_i < 0 || user_input_3.to_i > 100
-#       puts "\nHuh? I don't get that answer...please enter a value between 0 and 100"
-#       user_input_3 = gets.chomp.to_i
-#     end
-
+    user_input_3 = gets.chomp
+    third_custom_input = valid_value(user_input_3, "0", "100")
     puts "\nFinally, what is the maximum wind-speed (miles-per-hour) you're willing to tolerate?"
-    user_input_4 = gets.chomp.to_i
-      forth_custom_input = valid_value(user_input_4, "0", "200")
-
-
-#     while user_input_4.to_i < 0 || user_input_4.to_i > 200
-#       puts "\nHuh? I don't get that answer...please enter a value between 0 and 200"
-#       user_input_4 = gets.chomp.to_i
-#     end
-
+    user_input_4 = gets.chomp
+    forth_custom_input = valid_value(user_input_4, "0", "200")
 
     WEATHER_PARAMETERS.use_user_defined_parameters(first_custom_input, second_custom_input, third_custom_input, forth_custom_input)
 
@@ -153,7 +101,6 @@ class BoulderWeatherCheck::CLI
     puts "Minimum Temperature: #{WEATHER_PARAMETERS.cold_parameter}°"
     puts "Maximum Chance of Precipitation: #{WEATHER_PARAMETERS.rain_parameter}%"
     puts "Maximum Allowable Windspeed: #{WEATHER_PARAMETERS.wind_parameter}mph"
-
     puts "\nPress any key to continue"
     user_input = gets.chomp
   end
@@ -208,15 +155,15 @@ class BoulderWeatherCheck::CLI
   end
 
   def valid_entry(input)
-    x = input.to_i
-    if x <= 0 || x >= 13
+    user_entered_hour = input.to_i
+    if user_entered_hour <= 0 || user_entered_hour >= 13
       puts "\nI'm sorry but I could not reconize that number, enter a number between 1 and 12"
       select_time
     else
       if self.start_hour == nil
-        self.start_hour = x
+        self.start_hour = user_entered_hour
       elsif self.start_hour != nil
-        self.end_hour = x
+        self.end_hour = user_entered_hour
       end
     end
   end
@@ -227,9 +174,9 @@ class BoulderWeatherCheck::CLI
   end
 
   def update_warning
-    x = Time.now
-    y = x.min
-    if y >= 45
+    time_right_now = Time.now
+    minute_right_now = time_right_now.min
+    if minute_right_now >= 45
       puts "WARNING: Right now I can't analyize weather for the current hour; also, my data updates between the 45 minute mark and the next hour, so I might break!...would you like to continue? (y/n)"
       user_input = gets.chomp.downcase
       simple_yes_or_no_question(user_input)

@@ -1,5 +1,6 @@
 require_relative '../config/environment'
 
+# Each instance of this class is one particular hour in time.
 class WeatherDatabase
   attr_accessor :time, :rain, :temperature, :cloud, :wind, :problems
   @@all = []
