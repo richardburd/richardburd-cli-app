@@ -84,13 +84,13 @@ module DataQuery
     # 2.) The next hour if the current minute count is more than 45
     # This method is designed to deal with that issue
     # After the :45 minute mark, the program can no longer scrape weather data for
-    # the current hour and so the first instanc [0] on weather.com will be for the
+    # the current hour and so the first instance [0] on weather.com will be for the
     # very next hour instead of the current hour.
     def time_offset(hour_you_are_going_out, eleven_or_12)
       # This line of code makes it custom to Colorado Mountain Time (UTC - 6)
       # Colorado is technically UTC - 7 but the weird math just works out this
       # way instead.
-      x = Time.now.hour - 6
+      mountain_time = Time.now.hour - 6
 
       # This section figures out how to take in a time from the user (that will be a
       # number between 1 and 12) and turn that number into an integer between 1 and
@@ -107,21 +107,21 @@ module DataQuery
 
       # I never bothered building the rest of this program (the CLI and the weather
       # parameters) until I got this part working just right.
-      if x >= 1
-        x = x - eleven_or_12.to_i
+      if mountain_time >= 1
+        mountain_time = mountain_time - eleven_or_12.to_i
       else
-        x = x
+        mountain_time = mountain_time
       end
 
-      z = hour_you_are_going_out.to_i - x
-      if z < 0
-        z + 12
-      elsif z > 12
-        z - 12
-      elsif z == 12
-        z = 0
+      mountain_hour_you_are_goint_out = hour_you_are_going_out.to_i - mountain_time # mountain_hour_you_are_goint_out
+      if mountain_hour_you_are_goint_out < 0
+        mountain_hour_you_are_goint_out + 12
+      elsif mountain_hour_you_are_goint_out > 12
+        mountain_hour_you_are_goint_out - 12
+      elsif mountain_hour_you_are_goint_out == 12
+        mountain_hour_you_are_goint_out = 0
       else
-        z
+        mountain_hour_you_are_goint_out
       end
     end
 
@@ -141,9 +141,9 @@ module DataQuery
     # THIS RULE IS NOT ALWAYS TRUE!! because weather.com is not 100% consistant on how it
     # updates its weather data; for that reason this whole program will be broken from
     # time to time between the :45 minute mark and the start of the new hour.
-    x = Time.now
-    y = x.min
-    if y < 45
+    current_time = Time.now
+    current_time_minute_mark = current_time.min
+    if current_time_minute_mark < 45
       time_offset(hour_you_are_going_out, 12)
     else
   #    I don't need this while the program is working

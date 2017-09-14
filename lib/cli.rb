@@ -88,7 +88,7 @@ class BoulderWeatherCheck::CLI
     # OK so you need this instance of valid_value after the previous comparrison:
     # "first_custom_input < second_custom_input" because otherwise the program will
     # not check again to make sure the "second_custom_input" is in fact within proper range.
-    second_custom_input = valid_value(second_custom_input, "-40", "110"
+    second_custom_input = valid_value(second_custom_input, "-40", "110")
 
     puts "\nNow tell me maximum percentage-chance of rain you're willing to tolerate?"
     user_input_3 = gets.chomp

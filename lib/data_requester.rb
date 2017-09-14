@@ -10,7 +10,7 @@ class DataRequester
 
     # OK so this is where the actual weather database is created.
     # Each time this method runs, it creates one instance of the WeatherDatabase class.
-    # The <<time_of_the_day_analysed>> method upstream (in the CheckWeather class) it what
+    # The <<time_of_the_day_analysed>> method upstream (in the CheckWeather class) is what
     # does the actual iterations; it makes sure that EACH HOUR the user requests to be analyzed
     # actually gets analyzed; this method is only responsible for one hour of time.
     info = WeatherDatabase.new
@@ -23,7 +23,7 @@ class DataRequester
   end
 
 # The purpose of this alternative method is to utilize the "fake_weather_test_data" should the actual
-# scraper break for some reason...this way I can verify the rest of the program is running and isolate
+# scraper break for some reason...this way I can verify that the rest of the program is running and isolate
 # the scrapper as the problem if it is.
 
 #  def request_of_fake_data_for_a_particular_hour_in_time(timeslot)
