@@ -10,7 +10,7 @@ The purpose of this program is to check the Boulder Colorado weather and see if 
 
 ## Install instructions
 
-You will need Ruby installed on your machine to run this program; simply fork a copy of this repo onto your machine and run the `boulder-weathercheck` file in the `bin` directory to execute the program, follow the instructions on the command line interface to enter data and receive results.
+You will need Ruby installed on your machine to run this program; you will also need to download and install the Nokogiri and Open-Uri Ruby Gems...but you do not need Bundler.  After grabbing the necessary gems, clone a copy of this repo onto your machine and run the `boulder-weathercheck` file in the `bin` directory to execute the program, follow the instructions on the command line interface to enter data and receive results.
 
 ### Project Structure
 
