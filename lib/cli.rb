@@ -78,73 +78,28 @@ class BoulderWeatherCheck::CLI
   end
 
   def custom_weather_parameters
-
-# Right now this method doesn't do anything and is a candidate for deletion
-#    def min_max_values(input)
-#      while input.to_i < -40 || input.to_i > 130
-#        puts "\nWhoa that's crazy...please enter a value between -40 and 130"
-#        input = gets.chomp.to_i
-#        input
-#      end
-#    end
-
     puts "\nWhat is the maximum air temperature (°F) you're willing to go outside in?\n"
-
     user_input_1 = gets.chomp.to_i
       first_custom_input = valid_value(user_input_1, "-40", "110")
-#     It seems I've successfully refactored this out with the valid_value method...testing continues.
-#     while user_input_1.to_i < -40 || user_input_1.to_i > 110
-#       puts "\nWhoa that's crazy...please enter a value between -40 and 110"
-#       user_input_1 = gets.chomp.to_i
-#     end
-
     puts "\nOK cool...what is the minimum air temperature (°F) you're willing to go out in?"
-
     user_input_2 = gets.chomp.to_i
-      second_custom_input = valid_value(user_input_2, "-40", "110")
-#     It seems I've successfully refactored this out with the valid_value method...testing continues.
-#     while user_input_2.to_i < -40 || user_input_2.to_i > 110
-#       puts "\nWhoa that's crazy...please enter a value between -40 and 110"
-#       user_input_2 = gets.chomp.to_i
-#     end
-
+    second_custom_input = valid_value(user_input_2, "-40", "110")
       while first_custom_input < second_custom_input
         puts "\nUh oh, you can't hava a minimum temperature that is higher than your maximum temperature; please enter a lower value"
-          second_custom_input = gets.chomp.to_i
+        second_custom_input = gets.chomp.to_i
       end
 
-      # OK so you need this instance of valid_value after the previous comparrison:
-      # "first_custom_input < second_custom_input" because otherwise the program will
-      # not check again to make sure the "second_custom_input" is in fact within proper range.
-      second_custom_input = valid_value(second_custom_input, "-40", "110")
-
-#     This code was just replaced with the valid_value statement right above...
-#     ...so this code is slated for deletion after everything else is working 100%.
-#      while user_input_2.to_i < -40 || user_input_2.to_i > 110
-#        puts "\nWhoa that's crazy...please enter a value between -40 and 110"
-#        user_input_2 = gets.chomp.to_i
-#      end
+    # OK so you need this instance of valid_value after the previous comparrison:
+    # "first_custom_input < second_custom_input" because otherwise the program will
+    # not check again to make sure the "second_custom_input" is in fact within proper range.
+    second_custom_input = valid_value(second_custom_input, "-40", "110")
 
     puts "\nNow tell me maximum percentage-chance of rain you're willing to tolerate?"
     user_input_3 = gets.chomp.to_i
-      third_custom_input = valid_value(user_input_3, "0", "100")
-
-
-#     while user_input_3.to_i < 0 || user_input_3.to_i > 100
-#       puts "\nHuh? I don't get that answer...please enter a value between 0 and 100"
-#       user_input_3 = gets.chomp.to_i
-#     end
-
+    third_custom_input = valid_value(user_input_3, "0", "100")
     puts "\nFinally, what is the maximum wind-speed (miles-per-hour) you're willing to tolerate?"
     user_input_4 = gets.chomp.to_i
-      forth_custom_input = valid_value(user_input_4, "0", "200")
-
-
-#     while user_input_4.to_i < 0 || user_input_4.to_i > 200
-#       puts "\nHuh? I don't get that answer...please enter a value between 0 and 200"
-#       user_input_4 = gets.chomp.to_i
-#     end
-
+    forth_custom_input = valid_value(user_input_4, "0", "200")
 
     WEATHER_PARAMETERS.use_user_defined_parameters(first_custom_input, second_custom_input, third_custom_input, forth_custom_input)
 
@@ -153,7 +108,6 @@ class BoulderWeatherCheck::CLI
     puts "Minimum Temperature: #{WEATHER_PARAMETERS.cold_parameter}°"
     puts "Maximum Chance of Precipitation: #{WEATHER_PARAMETERS.rain_parameter}%"
     puts "Maximum Allowable Windspeed: #{WEATHER_PARAMETERS.wind_parameter}mph"
-
     puts "\nPress any key to continue"
     user_input = gets.chomp
   end
