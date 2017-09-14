@@ -140,12 +140,24 @@ class BoulderWeatherCheck::CLI
     end
   end
 
-  def valid_value(input, min_value, max_value)
+  def valid_value(input, min_value, max_value) 
+    while !(input.match(/[a-zA-Z]/)) == false
+      puts "Huh!?  I don't think that's an actual number...try one more time." 
+      input = gets.chomp
+    end 
+  
     while input.to_i < min_value.to_i || input.to_i > max_value.to_i
       puts "\nWhoa that's crazy...please enter a value between #{min_value} and #{max_value}"
-      input = gets.chomp.to_i
-    end
-    input
+      input = gets.chomp
+      output_due_to_outrageous_numbers = valid_value(input, min_value, max_value)
+    end 
+  
+
+    if output_due_to_outrageous_numbers  == nil
+      input.to_i
+    else 
+    output_due_to_outrageous_numbers 
+    end 
   end
 
   def valid_entry(input)
