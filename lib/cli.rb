@@ -90,7 +90,7 @@ class BoulderWeatherCheck::CLI
 
     puts "\nWhat is the maximum air temperature (°F) you're willing to go outside in?\n"
 
-    user_input_1 = gets.chomp.to_i
+    user_input_1 = gets.chomp
       first_custom_input = valid_value(user_input_1, "-40", "110")
 #     It seems I've successfully refactored this out with the valid_value method...testing continues.
 #     while user_input_1.to_i < -40 || user_input_1.to_i > 110
@@ -100,7 +100,7 @@ class BoulderWeatherCheck::CLI
 
     puts "\nOK cool...what is the minimum air temperature (°F) you're willing to go out in?"
 
-    user_input_2 = gets.chomp.to_i
+    user_input_2 = gets.chomp
       second_custom_input = valid_value(user_input_2, "-40", "110")
 #     It seems I've successfully refactored this out with the valid_value method...testing continues.
 #     while user_input_2.to_i < -40 || user_input_2.to_i > 110
@@ -110,7 +110,8 @@ class BoulderWeatherCheck::CLI
 
       while first_custom_input < second_custom_input
         puts "\nUh oh, you can't hava a minimum temperature that is higher than your maximum temperature; please enter a lower value"
-          second_custom_input = gets.chomp.to_i
+          second_custom_input = gets.chomp
+          second_custom_input = valid_value(second_custom_input, "-40", "110")
       end
 
       # OK so you need this instance of valid_value after the previous comparrison:
@@ -126,7 +127,7 @@ class BoulderWeatherCheck::CLI
 #      end
 
     puts "\nNow tell me maximum percentage-chance of rain you're willing to tolerate?"
-    user_input_3 = gets.chomp.to_i
+    user_input_3 = gets.chomp
       third_custom_input = valid_value(user_input_3, "0", "100")
 
 
@@ -136,7 +137,7 @@ class BoulderWeatherCheck::CLI
 #     end
 
     puts "\nFinally, what is the maximum wind-speed (miles-per-hour) you're willing to tolerate?"
-    user_input_4 = gets.chomp.to_i
+    user_input_4 = gets.chomp
       forth_custom_input = valid_value(user_input_4, "0", "200")
 
 
